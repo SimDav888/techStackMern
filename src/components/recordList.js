@@ -23,13 +23,21 @@ export default function RecordList() {
   // This method fetches the records from the database.
  useEffect(() => {
    async function getRecords() {
-     const response = await fetch(`http://localhost:5000/record/`);
+    console.log("   async function getRecords()");
+    let response
+    try {
+      response = await fetch(`http://localhost:5000/record/`);
       if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
        window.alert(message);
        return;
-     }
+      }
+    } catch (error) {
+      window.alert(error);
+      
+    }
       const records = await response.json();
+      console.log(records);
      setRecords(records);
    }
     getRecords();
